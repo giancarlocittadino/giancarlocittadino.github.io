@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Giancarlo Cittadino | Project Manager & Mentor</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #F0F7F6;
+      --ink: #042E2D;
+      --ink-muted: #3D6B68;
+      --accent: #4DC2A8;
+      --accent-dark: #2E9E87;
+      --accent-light: #D8F2ED;
+      --rule: #B8DEDA;
+      --white: #FFFFFF;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--ink); font-size: 16px; line-height: 1.7; overflow-x: hidden; }
+
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 5%; background: rgba(240,247,246,0.94); backdrop-filter: blur(12px); border-bottom: 1px solid var(--rule); }
+    .nav-logo { font-family: 'DM Serif Display', serif; font-size: 1.05rem; color: var(--ink); text-decoration: none; }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--ink-muted); font-size: 0.8rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* HERO */
+    .hero { min-height: 100vh; display: grid; grid-template-columns: 1.1fr 0.9fr; align-items: center; padding: 7rem 5% 4rem; gap: 4rem; position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; right: -5%; top: 5%; width: 55%; height: 90%; background: radial-gradient(ellipse at 70% 40%, #A8E6DC 0%, transparent 65%); pointer-events: none; }
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: 0.6rem; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.5rem; }
+    .hero-eyebrow::before { content: ''; display: block; width: 2rem; height: 1px; background: var(--accent); }
+    .hero-title { font-family: 'DM Serif Display', serif; font-size: clamp(2.6rem, 4.5vw, 4.2rem); line-height: 1.08; letter-spacing: -0.025em; margin-bottom: 1.75rem; }
+    .hero-title em { font-style: italic; color: var(--accent); }
+    .hero-sub { font-size: 1.05rem; color: var(--ink-muted); max-width: 500px; margin-bottom: 2.5rem; line-height: 1.85; }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary { display: inline-flex; align-items: center; gap: 0.65rem; background: var(--accent); color: var(--white); padding: 0.9rem 1.75rem; border-radius: 2px; text-decoration: none; font-weight: 600; font-size: 0.875rem; letter-spacing: 0.02em; transition: background 0.2s, transform 0.2s; }
+    .btn-primary:hover { background: var(--accent-dark); transform: translateY(-2px); }
+    .btn-primary svg { transition: transform 0.2s; }
+    .btn-primary:hover svg { transform: translateX(3px); }
+    .btn-secondary { display: inline-flex; align-items: center; gap: 0.65rem; background: transparent; color: var(--ink); padding: 0.9rem 1.75rem; border-radius: 2px; border: 1px solid var(--rule); text-decoration: none; font-weight: 500; font-size: 0.875rem; transition: border-color 0.2s, transform 0.2s; }
+    .btn-secondary:hover { border-color: var(--ink); transform: translateY(-2px); }
+
+    .hero-visual { position: relative; display: flex; justify-content: center; }
+    .hero-card { background: var(--white); border: 1px solid var(--rule); border-radius: 4px; padding: 2.25rem; max-width: 320px; width: 100%; box-shadow: 0 12px 48px rgba(0,0,0,0.07); position: relative; }
+    .hero-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--accent); border-radius: 4px 4px 0 0; }
+    .avatar-wrap { width: 72px; height: 72px; border-radius: 50%; background: var(--accent-light); border: 2px solid var(--accent); display: flex; align-items: center; justify-content: center; margin-bottom: 1.1rem; font-family: 'DM Serif Display', serif; font-size: 1.5rem; color: var(--accent); overflow: hidden; }
+    .avatar-wrap img { width: 100%; height: 100%; object-fit: cover; }
+    .card-name { font-family: 'DM Serif Display', serif; font-size: 1.2rem; margin-bottom: 0.2rem; }
+    .card-role { font-size: 0.75rem; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1.25rem; }
+    .card-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .tag { font-size: 0.7rem; font-weight: 600; padding: 0.25rem 0.65rem; border-radius: 2px; letter-spacing: 0.04em; }
+    .tag-accent { background: var(--accent); color: white; }
+    .tag-outline { background: transparent; border: 1px solid var(--rule); color: var(--ink-muted); }
+    .card-divider { border: none; border-top: 1px solid var(--rule); margin: 1.25rem 0; }
+    .card-stat { font-size: 0.78rem; color: var(--ink-muted); }
+    .card-stat strong { color: var(--ink); font-size: 1rem; font-family: 'DM Serif Display', serif; display: block; }
+
+    /* SHARED */
+    section { padding: 6rem 5%; }
+    .section-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; }
+    .section-label::after { content: ''; max-width: 2.5rem; height: 1px; background: var(--accent); flex: 1; }
+    .section-title { font-family: 'DM Serif Display', serif; font-size: clamp(1.9rem, 3vw, 2.8rem); letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 1rem; }
+    .section-intro { color: var(--ink-muted); max-width: 520px; line-height: 1.85; margin-bottom: 3rem; }
+    hr.divider { border: none; border-top: 1px solid var(--rule); margin: 0; }
+
+    /* SOBRE */
+    .about-grid { display: grid; grid-template-columns: 1fr 1.7fr; gap: 5rem; align-items: start; }
+    .stat-col { display: flex; flex-direction: column; gap: 2rem; margin-top: 0.5rem; }
+    .stat { border-left: 3px solid var(--accent); padding-left: 1.25rem; }
+    .stat-num { font-family: 'DM Serif Display', serif; font-size: 2.4rem; line-height: 1; color: var(--accent); }
+    .stat-desc { font-size: 0.83rem; color: var(--ink-muted); margin-top: 0.2rem; line-height: 1.5; }
+    .about-text p { color: var(--ink-muted); line-height: 1.9; margin-bottom: 1.25rem; }
+    .about-text p:last-child { margin-bottom: 0; }
+    .about-text strong { color: var(--ink); font-weight: 600; }
+    .companies { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--rule); }
+    .company-pill { font-size: 0.78rem; font-weight: 600; padding: 0.35rem 0.85rem; border-radius: 20px; background: var(--white); border: 1px solid var(--rule); color: var(--ink-muted); }
+
+    /* MENTORIA */
+    #mentoria { background: var(--ink); color: var(--white); }
+    #mentoria .section-label { color: var(--accent); }
+    #mentoria .section-label::after { background: var(--accent); }
+    #mentoria .section-title { color: var(--white); }
+    #mentoria .section-intro { color: rgba(255,255,255,0.55); }
+    .mentoria-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
+    .mc { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.09); border-radius: 4px; padding: 2rem; transition: background 0.2s, transform 0.2s; }
+    .mc:hover { background: rgba(255,255,255,0.09); transform: translateY(-3px); }
+    .mc-icon { width: 40px; height: 40px; background: var(--accent); border-radius: 2px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.25rem; }
+    .mc-icon svg { width: 20px; height: 20px; stroke: white; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .mc-title { font-family: 'DM Serif Display', serif; font-size: 1.15rem; margin-bottom: 0.6rem; color: var(--white); }
+    .mc-text { font-size: 0.875rem; color: rgba(255,255,255,0.5); line-height: 1.75; }
+    .mentoria-bottom { margin-top: 3rem; padding-top: 3rem; border-top: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap; }
+    .mentoria-bottom-text { font-family: 'DM Serif Display', serif; font-size: 1.5rem; color: var(--white); max-width: 380px; line-height: 1.3; }
+    .btn-light { display: inline-flex; align-items: center; gap: 0.6rem; background: var(--white); color: var(--ink); padding: 0.9rem 1.75rem; border-radius: 2px; text-decoration: none; font-weight: 600; font-size: 0.875rem; transition: background 0.2s, transform 0.2s; white-space: nowrap; }
+    .btn-light:hover { background: var(--accent-light); color: var(--ink); transform: translateY(-2px); }
+
+    /* EXPERIÊNCIA */
+    .exp-layout { display: grid; grid-template-columns: 260px 1fr; gap: 4rem; align-items: start; }
+    .exp-nav { position: sticky; top: 6rem; }
+    .exp-nav-label { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 1rem; }
+    .exp-nav-list { list-style: none; display: flex; flex-direction: column; }
+    .exp-nav-list a { display: block; text-decoration: none; color: var(--ink-muted); font-size: 0.85rem; padding: 0.55rem 0.75rem; border-left: 2px solid transparent; transition: color 0.2s, border-color 0.2s; }
+    .exp-nav-list a:hover { color: var(--accent); border-left-color: var(--accent); }
+    .exp-entries { display: flex; flex-direction: column; }
+    .exp-entry { padding: 2.5rem 0; border-bottom: 1px solid var(--rule); }
+    .exp-entry:first-child { padding-top: 0; }
+    .exp-entry:last-child { border-bottom: none; }
+    .exp-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; margin-bottom: 0.4rem; flex-wrap: wrap; }
+    .exp-role { font-family: 'DM Serif Display', serif; font-size: 1.25rem; }
+    .exp-period { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); background: var(--accent-light); padding: 0.25rem 0.7rem; border-radius: 2px; white-space: nowrap; }
+    .exp-company { font-size: 0.83rem; font-weight: 600; color: var(--ink-muted); margin-bottom: 0.9rem; letter-spacing: 0.03em; }
+    .exp-desc { color: var(--ink-muted); font-size: 0.925rem; line-height: 1.85; }
+    .exp-desc strong { color: var(--ink); }
+    .exp-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1rem; }
+    .exp-tag { font-size: 0.7rem; font-weight: 500; padding: 0.2rem 0.6rem; border-radius: 2px; background: var(--bg); border: 1px solid var(--rule); color: var(--ink-muted); }
+
+    /* DOCÊNCIA */
+    #docencia { background: var(--ink); }
+    .docencia-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
+    .doc-card { background: rgba(255,255,255,0.06); border: 1px solid rgba(77,194,168,0.25); border-radius: 4px; padding: 2rem; position: relative; overflow: hidden; transition: box-shadow 0.2s, transform 0.2s; }
+    .doc-card:hover { box-shadow: 0 8px 28px rgba(0,0,0,0.2); transform: translateY(-3px); }
+    .doc-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: var(--accent); }
+    .doc-badge { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); background: rgba(77,194,168,0.15); padding: 0.2rem 0.6rem; border-radius: 2px; display: inline-block; margin-bottom: 1rem; }
+    .doc-title { font-family: 'DM Serif Display', serif; font-size: 1.15rem; margin-bottom: 0.6rem; color: var(--white); }
+    .doc-text { color: rgba(255,255,255,0.55); font-size: 0.875rem; line-height: 1.75; }
+    .doc-inst { margin-top: 1.25rem; padding-top: 1.25rem; border-top: 1px solid rgba(77,194,168,0.2); font-size: 0.73rem; color: rgba(255,255,255,0.4); font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; }
+
+    /* HABILIDADES */
+    .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+    .skills-list { display: flex; flex-direction: column; gap: 0.65rem; }
+    .skill-row { display: flex; align-items: center; justify-content: space-between; background: var(--white); border: 1px solid var(--rule); border-radius: 2px; padding: 0.85rem 1.1rem; gap: 1rem; }
+    .skill-name { font-size: 0.875rem; font-weight: 500; }
+    .skill-bar-bg { width: 90px; height: 3px; background: var(--rule); border-radius: 2px; flex-shrink: 0; overflow: hidden; }
+    .skill-bar-fill { height: 100%; background: var(--accent); border-radius: 2px; }
+    .methods-block { display: flex; flex-direction: column; gap: 1.5rem; }
+    .method-card { background: var(--white); border: 1px solid var(--rule); border-radius: 4px; padding: 1.75rem; border-left: 4px solid var(--accent); }
+    .method-name { font-family: 'DM Serif Display', serif; font-size: 1.3rem; margin-bottom: 0.25rem; }
+    .method-full { font-size: 0.72rem; color: var(--accent); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; margin-bottom: 0.75rem; }
+    .method-desc { font-size: 0.875rem; color: var(--ink-muted); line-height: 1.75; }
+
+    /* CONTATO */
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+    .contact-info h3 { font-family: 'DM Serif Display', serif; font-size: 1.5rem; margin-bottom: 0.75rem; }
+    .contact-info p { color: var(--ink-muted); line-height: 1.85; margin-bottom: 2rem; }
+    .contact-detail { display: flex; align-items: center; gap: 1rem; background: var(--white); border: 1px solid var(--rule); padding: 1rem 1.25rem; border-radius: 2px; margin-bottom: 0.75rem; }
+    .contact-detail svg { stroke: var(--accent); flex-shrink: 0; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .contact-detail strong { display: block; font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 0.15rem; }
+    .contact-detail span { font-size: 0.875rem; color: var(--ink); }
+    .contact-form { display: flex; flex-direction: column; gap: 1.1rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.35rem; }
+    label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase; color: var(--ink-muted); }
+    input, textarea { background: var(--white); border: 1px solid var(--rule); border-radius: 2px; padding: 0.8rem 1rem; font-family: 'DM Sans', sans-serif; font-size: 0.925rem; color: var(--ink); transition: border-color 0.2s, box-shadow 0.2s; outline: none; }
+    input:focus, textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(196,84,10,0.1); }
+    textarea { resize: vertical; min-height: 120px; }
+    .btn-submit { display: inline-flex; align-items: center; gap: 0.6rem; background: var(--accent); color: var(--white); padding: 0.9rem 1.75rem; border: none; border-radius: 2px; font-family: 'DM Sans', sans-serif; font-size: 0.875rem; font-weight: 600; cursor: pointer; transition: background 0.2s, transform 0.2s; align-self: flex-start; letter-spacing: 0.02em; }
+    .btn-submit:hover { background: var(--accent-dark); transform: translateY(-2px); }
+
+    /* FOOTER */
+    footer { background: var(--ink); color: rgba(255,255,255,0.35); padding: 2.5rem 5%; display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; font-size: 0.8rem; }
+    .footer-brand { font-family: 'DM Serif Display', serif; font-size: 1rem; color: var(--white); }
+    footer a { color: rgba(255,255,255,0.5); text-decoration: none; }
+    footer a:hover { color: var(--accent); }
+
+    /* ANIMATIONS */
+    .fade-up { opacity: 0; transform: translateY(22px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+    .fade-up.d1 { transition-delay: 0.12s; }
+    .fade-up.d2 { transition-delay: 0.24s; }
+
+    /* RESPONSIVE */
+    @media (max-width: 960px) {
+      .hero { grid-template-columns: 1fr; padding-top: 8rem; }
+      .hero-visual { display: none; }
+      .about-grid, .exp-layout, .skills-grid, .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .mentoria-grid, .docencia-grid { grid-template-columns: 1fr; }
+      .exp-nav { display: none; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#">Giancarlo <span>Cittadino</span></a>
+  <ul class="nav-links">
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#mentoria">Mentoria</a></li>
+    <li><a href="#experiencia">Experiência</a></li>
+    <li><a href="#docencia">Docência</a></li>
+    <li><a href="#contato">Contato</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div>
+    <div class="hero-eyebrow">Project Manager · AWP · TOC</div>
+    <h1 class="hero-title">
+      20 anos de prática.<br>
+      Uma missão: <em>formar<br>os próximos líderes.</em>
+    </h1>
+    <p class="hero-sub">
+      Gerente de portfólio e projetos estratégicos, especialista em AWP e Teoria da Corrente Crítica. Professor na FIA e no Instituto Mauá — e mentor de profissionais que querem evoluir do júnior ao pleno com método real.
+    </p>
+    <div class="hero-actions">
+      <a href="#mentoria" class="btn-primary">
+        Quero a mentoria
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+      <a href="#experiencia" class="btn-secondary">Ver trajetória</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-card fade-up">
+      <div class="avatar-wrap">GC</div>
+      <div class="card-name">Giancarlo Cittadino</div>
+      <div class="card-role">Project Manager · São Paulo, SP</div>
+      <div class="card-tags">
+        <span class="tag tag-accent">AWP</span>
+        <span class="tag tag-accent">TOC</span>
+        <span class="tag tag-outline">PMO</span>
+        <span class="tag tag-outline">Lean</span>
+        <span class="tag tag-outline">BIM</span>
+        <span class="tag tag-outline">FIA</span>
+      </div>
+      <hr class="card-divider">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+        <div class="card-stat"><strong>+20 anos</strong>experiência profissional</div>
+        <div class="card-stat"><strong>+15 anos</strong>em liderança</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- SOBRE -->
+<section id="sobre">
+  <div class="about-grid">
+    <div>
+      <div class="section-label">Sobre</div>
+      <div class="stat-col">
+        <div class="stat fade-up">
+          <div class="stat-num">+20</div>
+          <div class="stat-desc">anos de experiência em projetos industriais e estratégicos</div>
+        </div>
+        <div class="stat fade-up d1">
+          <div class="stat-num">R$50bi</div>
+          <div class="stat-desc">em portfólio de projetos industriais gerenciado na Verum Partners</div>
+        </div>
+        <div class="stat fade-up d2">
+          <div class="stat-num">3</div>
+          <div class="stat-desc">instituições onde atua como professor e orientador</div>
+        </div>
+      </div>
+    </div>
+    <div class="about-text fade-up">
+      <h2 class="section-title">Gestão que conecta estratégia, campo e pessoas.</h2>
+      <p>Com mais de 20 anos de carreira e 15 em cargos de liderança, Giancarlo Cittadino construiu uma trajetória sólida em projetos industriais de grande escala — atuando em setores como <strong>mineração, açúcar e álcool e fertilizantes</strong>.</p>
+      <p>Hoje, como <strong>Gerente de Portfólio e Projetos Estratégicos na Ligga</strong>, integra a visão dos C-Levels com as camadas táticas e operacionais da empresa. Antes, na <strong>Verum Partners</strong>, liderou o PMO de um portfólio industrial com orçamento previsto superior a <strong>R$ 50 bilhões</strong>, implementando práticas de AWP, BIM, Lean Construction, ESG e metodologias ágeis.</p>
+      <p>Sua especialidade está em duas metodologias que transformam a forma como projetos complexos são entregues: <strong>AWP (Advanced Work Packaging)</strong> e a <strong>Teoria da Corrente Crítica (TOC)</strong>. É instrutor certificado de AWP pelo Verum Institute e professor em duas das mais respeitadas instituições de ensino do Brasil.</p>
+      <div class="companies">
+        <span class="company-pill">Ligga</span>
+        <span class="company-pill">Verum Partners</span>
+        <span class="company-pill">Promon Engenharia</span>
+        <span class="company-pill">FIA Business School</span>
+        <span class="company-pill">Instituto Mauá</span>
+        <span class="company-pill">Verum Institute</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- MENTORIA -->
+<section id="mentoria">
+  <div class="section-label">Mentoria</div>
+  <h2 class="section-title">Do júnior ao pleno com<br>quem já trilhou esse caminho.</h2>
+  <p class="section-intro">Uma mentoria para profissionais de projetos industriais que querem evoluir com método, clareza e a experiência de quem viveu de perto os desafios da área.</p>
+  <div class="mentoria-grid">
+    <div class="mc fade-up">
+      <div class="mc-icon"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
+      <div class="mc-title">AWP & TOC na prática</div>
+      <div class="mc-text">As metodologias que realmente diferenciam um profissional no mercado industrial — com exemplos reais de obra e canteiro, sem teoria vazia.</div>
+    </div>
+    <div class="mc fade-up d1">
+      <div class="mc-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+      <div class="mc-title">Evolução estruturada</div>
+      <div class="mc-text">Diagnóstico do seu momento atual, metas claras e acompanhamento para avançar do nível júnior ao pleno com consistência e velocidade.</div>
+    </div>
+    <div class="mc fade-up d2">
+      <div class="mc-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 1 0-16 0"/></svg></div>
+      <div class="mc-title">Visão de quem lidera</div>
+      <div class="mc-text">Decisões difíceis, gestão de stakeholders e o que a indústria real exige. O tipo de conhecimento que só 20 anos de prática entregam.</div>
+    </div>
+  </div>
+  <div class="mentoria-bottom fade-up">
+    <div class="mentoria-bottom-text">Pronto para acelerar sua carreira em projetos industriais?</div>
+    <a href="#contato" class="btn-light">
+      Quero ser mentorado
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- EXPERIÊNCIA -->
+<section id="experiencia">
+  <div class="exp-layout">
+    <div class="exp-nav fade-up">
+      <div class="section-label" style="margin-bottom:1.5rem;">Trajetória</div>
+      <div class="exp-nav-label">Empresas</div>
+      <ul class="exp-nav-list">
+        <li><a href="#exp-ligga">Ligga</a></li>
+        <li><a href="#exp-verum">Verum Partners</a></li>
+        <li><a href="#exp-promon">Promon Engenharia</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2 class="section-title fade-up">+20 anos construindo<br>resultados reais.</h2>
+      <p class="section-intro fade-up">Uma carreira marcada por projetos industriais de alta complexidade, liderança de equipes multidisciplinares e implantação de metodologias que transformam a forma de gerir.</p>
+      <div class="exp-entries">
+        <div class="exp-entry fade-up" id="exp-ligga">
+          <div class="exp-header">
+            <div class="exp-role">Gerente de Portfólio e Projetos Estratégicos</div>
+            <div class="exp-period">Dez 2024 – Atual</div>
+          </div>
+          <div class="exp-company">Ligga · São Paulo, SP · Tempo integral</div>
+          <div class="exp-desc">Gestão do portfólio de projetos da Ligga, <strong>integrando a estratégia dos C-Levels com as camadas táticas e operacionais</strong> da empresa. Responsável por garantir alinhamento, governança e execução dos projetos estratégicos corporativos.</div>
+          <div class="exp-tags"><span class="exp-tag">Gestão de Portfólio</span><span class="exp-tag">Projetos Estratégicos</span><span class="exp-tag">Governança</span><span class="exp-tag">Engenharia de Projetos</span></div>
+        </div>
+        <div class="exp-entry fade-up" id="exp-verum">
+          <div class="exp-header">
+            <div class="exp-role">PMO & Senior Consultant — Capital Projects</div>
+            <div class="exp-period">Jan 2021 – Dez 2024</div>
+          </div>
+          <div class="exp-company">Verum Partners · São Paulo, SP · 4 anos</div>
+          <div class="exp-desc">Atuação como PMO para direcionamento dos times de acordo com a gestão do Master Plan. Implantação das melhores práticas de gestão incluindo <strong>metodologias ágeis, BIM, AWP, ESG e Lean Construction</strong>.<br><br>Gestão de portfólio de projetos industriais de mineração com <strong>orçamento previsto superior a R$ 50 bilhões</strong>, estabelecendo governança e priorização dos projetos. Como consultor sênior, aplicou Gestão de Engenharia Ágil, AWP e princípios Lean em projetos de engenharia básica e detalhada.</div>
+          <div class="exp-tags"><span class="exp-tag">AWP</span><span class="exp-tag">PMO</span><span class="exp-tag">Lean Construction</span><span class="exp-tag">BIM</span><span class="exp-tag">ESG</span><span class="exp-tag">Mineração</span><span class="exp-tag">Kanban · Scrum</span></div>
+        </div>
+        <div class="exp-entry fade-up" id="exp-promon">
+          <div class="exp-header">
+            <div class="exp-role">Gestão de Projetos Industriais</div>
+            <div class="exp-period">Trajetória anterior</div>
+          </div>
+          <div class="exp-company">Promon Engenharia · e outras empresas</div>
+          <div class="exp-desc">Mais de 20 anos de atuação em projetos industriais de grande porte, com experiência nos setores de <strong>mineração, açúcar e álcool e fertilizantes</strong>. Liderança de equipes multidisciplinares há mais de 15 anos, com foco em planejamento, controle e entrega de projetos complexos.</div>
+          <div class="exp-tags"><span class="exp-tag">Mineração</span><span class="exp-tag">Açúcar & Álcool</span><span class="exp-tag">Fertilizantes</span><span class="exp-tag">Liderança de Equipes</span><span class="exp-tag">Planejamento Industrial</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- DOCÊNCIA -->
+<section id="docencia">
+  <div class="section-label">Docência</div>
+  <h2 class="section-title">Levando a prática<br>para a sala de aula.</h2>
+  <p class="section-intro">Professor em duas das mais respeitadas instituições do Brasil e instrutor certificado da metodologia AWP.</p>
+  <div class="docencia-grid">
+    <div class="doc-card fade-up">
+      <div class="doc-badge">MBA · FIA</div>
+      <div class="doc-title">Professor de Planejamento e Cronograma</div>
+      <div class="doc-text">Aulas de planejamento e cronograma para alunos de MBA, conectando o rigor acadêmico às demandas reais do mercado de projetos industriais. Orientador de Trabalhos Finais de Programa (TFP).</div>
+      <div class="doc-inst">GPRO · FIA Business School · Set 2023 – Atual</div>
+    </div>
+    <div class="doc-card fade-up d1">
+      <div class="doc-badge">Graduação · Pós · Mauá</div>
+      <div class="doc-title">Professor de Gerenciamento da Construção</div>
+      <div class="doc-text">Aulas de gerenciamento da construção nas atividades de PAE e na pós-graduação em BIM, integrando tecnologia e gestão em projetos de construção civil e industrial.</div>
+      <div class="doc-inst">IMT · Instituto Mauá de Tecnologia · Fev 2023 – Atual</div>
+    </div>
+    <div class="doc-card fade-up d2">
+      <div class="doc-badge">AWP · Instrutor</div>
+      <div class="doc-title">Instrutor AWP — Fundamentals & Expert</div>
+      <div class="doc-text">Instrutor da metodologia AWP nos cursos Fundamentals e Expert, disseminando suas funcionalidades e benefícios para profissionais e organizações do setor industrial.</div>
+      <div class="doc-inst">Verum Institute · Jan 2023 – Dez 2024</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- HABILIDADES -->
+<section id="habilidades">
+  <div class="section-label">Habilidades</div>
+  <h2 class="section-title">Metodologias e competências.</h2>
+  <div class="skills-grid">
+    <div class="skills-list fade-up">
+      <div class="skill-row"><span class="skill-name">AWP — Advanced Work Packaging</span><div class="skill-bar-bg"><div class="skill-bar-fill" style="width:96%"></div></div></div>
+      <div class="skill-row"><span class="skill-name">TOC — Teoria da Corrente Crítica</span><div class="skill-bar-bg"><div class="skill-bar-fill" style="width:90%"></div></div></div>
+      <div class="skill-row"><span class="skill-name">Gestão de Portfólio de Projetos</span><div class="skill-bar-bg"><div class="skill-bar-fill" style="width:95%"></div></div></div>
+      <div class="skill-row"><span class="skill-name">Lean Construction</span><div class="skill-bar-bg"><div class="skill-bar-fill" style="width:88%"></div></div></div>
+      <div class="skill-row"><span class="skill-name">BIM</span><div class="skill-bar-bg"><div class="skill-bar-fill" style="width:80%"></div></div></div>
+      <div class="skill-row"><span class="skill-name">Metodologias Ágeis (Kanban · Scrum)</span><div class="skill-bar-bg"><div class="skill-bar-fill" style="width:85%"></div></div></div>
+      <div class="skill-row"><span class="skill-name">PMBOK</span><div class="skill-bar-bg"><div class="skill-bar-fill" style="width:92%"></div></div></div>
+    </div>
+    <div class="methods-block fade-up d1">
+      <div class="method-card">
+        <div class="method-name">AWP</div>
+        <div class="method-full">Advanced Work Packaging</div>
+        <div class="method-desc">Metodologia que estrutura o trabalho de construção industrial em pacotes gerenciáveis — reduzindo retrabalho, aumentando produtividade e tornando projetos mais previsíveis. Giancarlo é instrutor certificado e uma das principais referências na disseminação do AWP no Brasil.</div>
+      </div>
+      <div class="method-card">
+        <div class="method-name">TOC</div>
+        <div class="method-full">Teoria da Corrente Crítica</div>
+        <div class="method-desc">Abordagem de gestão de projetos baseada na Teoria das Restrições, com foco em eliminar gargalos, proteger o prazo com buffers estratégicos e aumentar a taxa de entrega de projetos no prazo.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- CONTATO -->
+<section id="contato">
+  <div class="contact-grid">
+    <div class="contact-info fade-up">
+      <div class="section-label">Contato</div>
+      <h3>Vamos conversar?</h3>
+      <p>Seja para saber mais sobre a mentoria, uma parceria acadêmica ou para trocar experiências sobre projetos industriais — meu e-mail está aberto.</p>
+      <div class="contact-detail">
+        <svg width="20" height="20" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        <div><strong>E-mail</strong><span><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f6919f97989597849a99959f828297929f9899b6919b979f9ad895999b">[email&#160;protected]</a></span></div>
+      </div>
+      <div class="contact-detail">
+        <svg width="20" height="20" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <div><strong>Localização</strong><span>São Paulo, SP — Brasil</span></div>
+      </div>
+      <div class="contact-detail">
+        <svg width="20" height="20" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        <div><strong>LinkedIn</strong><span>linkedin.com/in/giancarlo-cittadino</span></div>
+      </div>
+    </div>
+    <div class="fade-up d1">
+      <form class="contact-form" onsubmit="handleSubmit(event)">
+        <div class="form-group"><label for="nome">Nome completo</label><input type="text" id="nome" placeholder="Seu nome" required /></div>
+        <div class="form-group"><label for="email">E-mail</label><input type="email" id="email" placeholder="seuemail@exemplo.com" required /></div>
+        <div class="form-group"><label for="assunto">Assunto</label><input type="text" id="assunto" placeholder="Mentoria · Docência · Parceria · Projetos" /></div>
+        <div class="form-group"><label for="msg">Mensagem</label><textarea id="msg" placeholder="Conte um pouco sobre você e o que está buscando..." required></textarea></div>
+        <button type="submit" class="btn-submit">
+          Enviar mensagem
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-brand">Giancarlo Cittadino</span>
+  <span>© 2025 · Todos os direitos reservados</span>
+  <a href="https://linkedin.com/in/giancarlo-cittadino" target="_blank">LinkedIn ↗</a>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(el => { if (el.isIntersecting) el.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    const nome = document.getElementById('nome').value;
+    const assunto = document.getElementById('assunto').value || 'Contato via portfólio';
+    const msg = document.getElementById('msg').val
